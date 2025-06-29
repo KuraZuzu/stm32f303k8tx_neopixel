@@ -93,7 +93,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-  int blightness=50;
+  int blightness=255;
   UpdateNeoPixel(0,0,blightness);
 
   /* USER CODE END 2 */
@@ -106,23 +106,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==GPIO_PIN_RESET){
-		  UpdateNeoPixel(0,0,0);
-		  HAL_Delay(80);
-		  UpdateNeoPixel(0,0,blightness);
-		  HAL_Delay(80);
-		  UpdateNeoPixel(0,0,0);
-		  HAL_Delay(80);
-		  UpdateNeoPixel(0,0,blightness);
-		  HAL_Delay(80);
-		  UpdateNeoPixel(0,0,0);
-		  HAL_Delay(50);
-		  UpdateNeoPixel(0,0,blightness);
-		  HAL_Delay(50);
-		  UpdateNeoPixel(0,0,0);
-		  HAL_Delay(50);
-		  UpdateNeoPixel(0,0,blightness);
-		  HAL_Delay(50);
-		  UpdateNeoPixel(0,0,blightness);
+      HAL_Delay(10); // Debounce delay
 	  }
   }
   /* USER CODE END 3 */
