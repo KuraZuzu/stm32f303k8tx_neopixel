@@ -12,6 +12,6 @@
 #include "stdint.h"
 
 void UpdateNeoPixel(uint16_t r,uint16_t g,uint16_t b);
-void SetNeoPixel(uint16_t r,uint16_t g,uint16_t b);
+void SetNeoPixel();
 
 #endif /* BASICFUNCTIONS_INC_NEOPIXEL_H_ */

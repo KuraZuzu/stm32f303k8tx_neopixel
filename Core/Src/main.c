@@ -92,9 +92,11 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_TIM1_Init();
+
   /* USER CODE BEGIN 2 */
   int flag=0;
-  int blightness=1;
+  int blightness=255;
+  UpdateNeoPixel(blightness,0,0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
