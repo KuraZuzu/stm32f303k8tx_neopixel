@@ -17,7 +17,7 @@ set(SIZE arm-none-eabi-size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # project settings
-project(STZ C CXX ASM)
+project(stm32f303k8tx_neopixel C CXX ASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
@@ -45,15 +45,19 @@ include_directories(Core/Inc Drivers/STM32F3xx_HAL_Driver/Inc Drivers/STM32F3xx_
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F303x8)
 
+set(MY_SRC "Core/Src/*.c*")
+
 file(GLOB_RECURSE SOURCES "Core/Startup/*.*" "Core/Src/*.c" "Drivers/*.*" ${MY_SRC})
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F303K8Tx_FLASH.ld)
 
-add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
-add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
-add_link_options(-T ${LINKER_SCRIPT})
+add_executable(${PROJECT_NAME}.elf ${SOURCES})
 
-add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+target_link_options(${PROJECT_NAME}.elf PRIVATE
+    -Wl,-gc-sections
+    -Wl,--print-memory-usage
+    -Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map
+)
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
