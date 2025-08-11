@@ -95,7 +95,6 @@ int main(void) {
     MX_USART2_UART_Init();
     MX_TIM1_Init();
     /* USER CODE BEGIN 2 */
-    int brightness = 255;
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -103,13 +102,21 @@ int main(void) {
 
     enum Color { Red = 0, Blue = 1, Green = 2, Yellow = 3, Off = 4, Size = 5 };
 
-    int color_count = 0;
     int sw_pushed_flag = 0;
+    int color_count = 0;
+    int brightness = 255;  // LEDの明るさを初期化
+    int brightness_step = 51;  // 0, 51, 102, ..., 255となる
 
     while (1) {
         if (readPushSwitch(SW_BLUE_GPIO_Port, SW_BLUE_Pin)) {
             sw_pushed_flag = 1;
-            color_count = (color_count + 1) % Size;
+            color_count = (color_count + 1) % Size;  // 色変更
+        }
+
+        if (readPushSwitch(SW_RED_GPIO_Port, SW_RED_Pin)) {
+            sw_pushed_flag = 1;
+            brightness -= brightness_step;
+            if(brightness < 0) brightness = 255;
         }
 
         if (sw_pushed_flag) {
