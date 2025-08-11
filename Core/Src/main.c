@@ -101,22 +101,19 @@ int main(void) {
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
+
+    int i = 0;
     while (1) {
-        /* USER CODE END WHILE */
-
-        /* USER CODE BEGIN 3 */
-
-        if (readPushSwitch(SW_BLUE_GPIO_Port, SW_BLUE_Pin)) {
-            UpdateNeoPixel(blightness, 0, 0);
+        if (i == 0) {
+            UpdateNeoPixel(blightness, 0, 0);  // Blue
+        } else {
+            UpdateNeoPixel(0, 0, blightness);  // Red
         }
-
-        if (readPushSwitch(SW_RED_GPIO_Port, SW_RED_Pin)) {
-            UpdateNeoPixel(blightness, 0, blightness);
-        }
-        HAL_Delay(10);  // Debounce delay
-
-        /* USER CODE END 3 */
+        HAL_Delay(1000);  // Wait for a second before changing color
+        i = (i+1) % 2;        // Toggle between 0 and 1
     }
+
+    /* USER CODE END WHILE */
 }
 
 /**
