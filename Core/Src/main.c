@@ -105,15 +105,18 @@ int main(void) {
     int i = 0;
     while (1) {
         if (i == 0) {
-            UpdateNeoPixel(blightness, 0, 0);  // Blue
+            UpdateNeoPixel(blightness, 0, 0);  // 赤
         } else {
-            UpdateNeoPixel(0, 0, blightness);  // Red
+            UpdateNeoPixel(0, 0, blightness);  // 青
         }
-        HAL_Delay(1000);  // Wait for a second before changing color
-        i = (i+1) % 2;        // Toggle between 0 and 1
+        HAL_Delay(1000);
+        i ^= 1;
     }
-
     /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+
+    /* USER CODE END 3 */
 }
 
 /**
