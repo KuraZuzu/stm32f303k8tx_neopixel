@@ -94,9 +94,7 @@ int main(void) {
     MX_USART2_UART_Init();
     MX_TIM1_Init();
     /* USER CODE BEGIN 2 */
-    int flag = 0;
-    int blightness = 255;
-    // UpdateNeoPixel(blightness, 0, 0);
+    int brightness = 255;
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -105,9 +103,9 @@ int main(void) {
     int i = 0;
     while (1) {
         if (i == 0) {
-            UpdateNeoPixel(blightness, 0, 0);  // 赤
+            UpdateNeoPixel(brightness, 0, 0);  // 赤
         } else {
-            UpdateNeoPixel(0, 0, blightness);  // 青
+            UpdateNeoPixel(0, 0, brightness);  // 青
         }
         HAL_Delay(1000);
         i ^= 1;
