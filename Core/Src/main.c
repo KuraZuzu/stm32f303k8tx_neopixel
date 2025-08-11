@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "neopixel.h"
+#include "push_sw.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,15 +101,38 @@ int main(void) {
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
 
-    int i = 0;
+    enum Color { Red = 0, Blue = 1, Green = 2, Yellow = 3, Off = 4, Size = 5 };
+
+    int color_count = 0;
+    int sw_pushed_flag = 0;
+
     while (1) {
-        if (i == 0) {
-            UpdateNeoPixel(brightness, 0, 0);  // 赤
-        } else {
-            UpdateNeoPixel(0, 0, brightness);  // 青
+        if (readPushSwitch(SW_BLUE_GPIO_Port, SW_BLUE_Pin)) {
+            sw_pushed_flag = 1;
+            color_count = (color_count + 1) % Size;
         }
-        HAL_Delay(1000);
-        i ^= 1;
+
+        if (sw_pushed_flag) {
+            switch (color_count) {
+                case Red:
+                    UpdateNeoPixel(brightness, 0, 0);
+                    break;
+                case Blue:
+                    UpdateNeoPixel(0, 0, brightness);
+                    break;
+                case Green:
+                    UpdateNeoPixel(0, brightness, 0);
+                    break;
+                case Yellow:
+                    UpdateNeoPixel(brightness, brightness, 0);
+                    break;
+                case Off:
+                    UpdateNeoPixel(0, 0, 0);
+                    break;
+            }
+            SetNeoPixel();
+            sw_pushed_flag = 0;
+        }
     }
     /* USER CODE END WHILE */
 

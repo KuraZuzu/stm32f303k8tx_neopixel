@@ -1,6 +1,14 @@
 {
     "files.associations": {
         "cstdint": "c",
-        "compare": "c"
+        "compare": "c",
+        "array": "c",
+        "bitset": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "ranges": "c",
+        "span": "c",
+        "utility": "c",
+        "format": "c"
     }
 }
